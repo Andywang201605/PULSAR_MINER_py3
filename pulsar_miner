@@ -1351,7 +1351,12 @@ def check_prepsubband_result(work_dir, list_DD_schemes, verbosity_level=1):
                 print("check_prepsubband_result:: work_dir = ", work_dir)
 
         for i in range(N_schemes):
-                for dm in np.arange(list_DD_schemes[i]['loDM'],   list_DD_schemes[i]['highDM'] - 0.5*list_DD_schemes[i]['dDM']        , list_DD_schemes[i]['dDM']):    
+                dm_list = np.arange(
+                        list_DD_schemes[i]['loDM'], 
+                        list_DD_schemes[i]['loDM'] + (list_DD_schemes[i]["num_DMs"] - 0.5) * list_DD_schemes[i]['dDM'], 
+                        list_DD_schemes[i]['dDM']
+                )
+                for dm in dm_list:    
                         if verbosity_level >= 2:
                                 print("check_prepsubband_result:: Looking for: ", os.path.join(work_dir, "*DM%.2f.dat"%(dm) ),  os.path.join(work_dir, "*DM%.2f.inf"%(dm) )) 
                                 print("check_prepsubband_result:: This is what I found: %s, %s" % (  [ x for x in glob.glob(os.path.join(work_dir, "*DM%.2f.dat"%(dm))) if not "_red" in x]  , [ x for x in glob.glob(os.path.join(work_dir, "*DM%.2f.inf"%(dm))) if not "_red" in x]    ))
