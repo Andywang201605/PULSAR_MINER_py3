@@ -20,7 +20,7 @@ flag_plot_set_ymax = 0
 list_what_plot = ['original_signal', 'recorded_signal']
 list_subint_range = []
 if (len(sys.argv) == 1):
-        print "USAGE: %s -fits \"<fitsfiles*.fits>\" [-makeplots] [-what {all,original_signal,recorded_signal}] -subint_range [min:max] [-tot_subints 100] [-set_ymax] -only_first_sample_per_subint" % (os.path.basename(sys.argv[0]))
+        print("USAGE: %s -fits \"<fitsfiles*.fits>\" [-makeplots] [-what {all,original_signal,recorded_signal}] -subint_range [min:max] [-tot_subints 100] [-set_ymax] -only_first_sample_per_subint" % (os.path.basename(sys.argv[0])))
         exit()
 else:
         for j in range(1, len(sys.argv)):
@@ -73,29 +73,29 @@ for i in range(N_files):
         nsamp_tot        = pf.nspec
         Tobs_s           = pf.specinfo.T
 
-        print 
-        print "===================================================="
-        print "FILE: %s" % (fits_filename)
-        print "===================================================="
-        print
+        print() 
+        print("====================================================")
+        print("FILE: %s" % (fits_filename))
+        print("====================================================")
+        print()
 
-        print "%30s: %-20d" % ("Number of bits", nbits)
-        print "%30s: %-20d" % ("Number of channels", nchan )
-        print "%30s: %-20d" % ("Number of subints", nsubints )
-        print "%30s: %-20d" % ("Number of samples", nsamp_tot )
-        print "%30s: %-20.2f" % ("Observation length (s)", Tobs_s )
+        print("%30s: %-20d" % ("Number of bits", nbits))
+        print("%30s: %-20d" % ("Number of channels", nchan ))
+        print("%30s: %-20d" % ("Number of subints", nsubints ))
+        print("%30s: %-20d" % ("Number of samples", nsamp_tot ))
+        print("%30s: %-20.2f" % ("Observation length (s)", Tobs_s ))
 
         
         if list_subint_range == []:
                 if tot_subints == 0:
-                        list_subint_range = range(0, nsubints)
+                        list_subint_range = list(range(0, nsubints))
                 elif tot_subints > 0:
                         list_subint_range = np.linspace(0, nsubints-1, tot_subints, dtype=int)
                 
         if flag_only_first_sample_per_subint == 1:
                 list_samples = [0]
         elif flag_only_first_sample_per_subint == 0:
-                list_samples = range(0, nsamp_per_subint)
+                list_samples = list(range(0, nsamp_per_subint))
 
         if flag_make_plots == 1:
                 plots_dirname = "plots_%s" % (fits_file_nameonly)
@@ -124,7 +124,7 @@ for i in range(N_files):
                                 spectrum_original = subint_with_scloffs[k_samp]
                                 spectrum_recorded = subint_without_scloffs[k_samp]
 
-                                print "Making plot for subint %04d - sample %04d" % (i_subint, k_samp)
+                                print("Making plot for subint %04d - sample %04d" % (i_subint, k_samp))
                                 if 'original_signal' in list_what_plot:
                                         plt.clf()
                                         

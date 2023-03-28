@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python
 
 import sys, os, os.path, glob
 import numpy as np
@@ -55,10 +55,10 @@ class Observation(object):
 
                 if data_type=="psrfits":
                         if verbosity_level >= 2:
-                                print "Reading PSRFITS...."
+                                print("Reading PSRFITS....")
                         if psrfits.is_PSRFITS(file_name) == True:
                                 if verbosity_level >= 2:
-                                        print "File '%s' correctly recognized as PSRFITS" % (file_name)
+                                        print("File '%s' correctly recognized as PSRFITS" % (file_name))
                                 object_file = psrfits.PsrfitsFile(self.file_abspath)
                                 self.bw_MHz           = object_file.specinfo.BW
                                 self.N_samples        = object_file.specinfo.N
@@ -89,7 +89,7 @@ class Observation(object):
                                 self.DECJ_str         = object_file.specinfo.dec_str
 
                         else:
-                                print "Reading PSRFITS (header only)...."
+                                print("Reading PSRFITS (header only)....")
                                 self.bw_MHz           = np.float(get_command_output("vap -n -c bw %s" % (file_name)).split()[-1])
                                 self.N_samples        = np.float(get_command_output_with_pipe("readfile %s" % (file_name), "grep Spectra").split("=")[-1])
                                 self.T_obs_s          = np.float(get_command_output("vap -n -c length %s" % (file_name)).split()[-1])
@@ -140,7 +140,7 @@ class Observation(object):
                                 
                         except ValueError:
                                 if verbosity_level >= 1:
-                                        print "WARNING: I got a Value Error! Likely your filterbank data is not 8-,16- or 32-bit. Using 'header' to get the necessary information..."
+                                        print("WARNING: I got a Value Error! Likely your filterbank data is not 8-,16- or 32-bit. Using 'header' to get the necessary information...")
                                         
                                         self.N_samples        = np.abs(int(    get_command_output("header %s -nsamples" % (self.file_abspath)).split()[-1]  ))
                                         self.t_samp_s         = np.float(      get_command_output("header %s -tsamp"    % (self.file_abspath)).split()[-1]) *1.0e-6
@@ -162,7 +162,7 @@ N_top_closest_beams = -1
 
 #SHELL ARGUMENTS
 if (len(sys.argv) == 1):
-        print "USAGE: %s -beams \"*.fil\" -coord \"RA,DEC\" -n N" % (os.path.basename(sys.argv[0]))
+        print("USAGE: %s -beams \"*.fil\" -coord \"RA,DEC\" -n N" % (os.path.basename(sys.argv[0])))
         exit()
 else:
         for j in range(1, len(sys.argv)):
@@ -226,7 +226,7 @@ if N_top_closest_beams == -1:
         N_top_closest_beams = len(list_beams_dicts)
         
 for i in range(N_top_closest_beams):
-        print "Beam %4d/%d:   %s    --->  distance from (%s,%s): %10.3f  arcsec" % (i+1, len(list_beams_dicts), list_beams_dicts[i]['rawfilename'], RA2,DEC2, list_beams_dicts[i]['distance_arcsec'])
+        print("Beam %4d/%d:   %s    --->  distance from (%s,%s): %10.3f  arcsec" % (i+1, len(list_beams_dicts), list_beams_dicts[i]['rawfilename'], RA2,DEC2, list_beams_dicts[i]['distance_arcsec']))
         
 exit()
 

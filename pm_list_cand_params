@@ -17,7 +17,7 @@ def import_bestprof( infile ):
 
         dict_bestprof = {}
 
-	for line in file_bestprof:
+        for line in file_bestprof:
                 if line.startswith("# "):
                         split_line = [ x.strip() for x in line[2:].split("=") ]
 
@@ -26,7 +26,7 @@ def import_bestprof( infile ):
                             
                         try:
                                 dict_bestprof[ split_line[0] ] = split_line[1]
-			except:
+                        except:
                                 pass
                         
         return dict_bestprof
@@ -34,9 +34,9 @@ def import_bestprof( infile ):
 
 
 #ARGOMENTI DA SHELL
-flag_use_tabs =	0
+flag_use_tabs =        0
 if (len(sys.argv) == 1):
-        print "USAGE: %s -bestprof \"GOOD*.bestprof\" -tab_spacing " % (os.path.basename(sys.argv[0]))
+        print("USAGE: %s -bestprof \"GOOD*.bestprof\" -tab_spacing " % (os.path.basename(sys.argv[0])))
         exit()
 else:
         for j in range(1, len(sys.argv)):
@@ -54,7 +54,7 @@ N_bestprof = len(list_bestprof)
 
 
 
-print "%90s %20s %14s %15s %15s %10s %12s"   % ("File name", "P_bary (ms)", "P_dot", "DM (pc cm-3)", "Acc (m/s^2)", "zmax", "Length (s)")
+print("%90s %20s %14s %15s %15s %10s %12s"   % ("File name", "P_bary (ms)", "P_dot", "DM (pc cm-3)", "Acc (m/s^2)", "zmax", "Length (s)"))
 for k in range(N_bestprof):
 
         bestprof_filename = list_bestprof[k]
@@ -73,9 +73,9 @@ for k in range(N_bestprof):
         zmax = int(bestprof_filename.split("_z")[-1].split("_")[0])
         accel_ms2 = calculate_acceleration_in_cm_s2_from_F0_and_F1(P_bary_ms / 1000, P_dot)/100.
         if flag_use_tabs == 1:
-                print "%-90s %20.15f %14.5e %15.3f %15.3f %10d %12d"   % (bestprof_filename, P_bary_ms, P_dot, DM, accel_ms2, zmax, chunk_length_s)
+                print("%-90s %20.15f %14.5e %15.3f %15.3f %10d %12d"   % (bestprof_filename, P_bary_ms, P_dot, DM, accel_ms2, zmax, chunk_length_s))
         else:
-                print "%s %.15f %.5e %.3f %.3f %d %d"   % (bestprof_filename, P_bary_ms, P_dot, DM, accel_ms2, zmax, chunk_length_s)
+                print("%s %.15f %.5e %.3f %.3f %d %d"   % (bestprof_filename, P_bary_ms, P_dot, DM, accel_ms2, zmax, chunk_length_s))
 
 
 
